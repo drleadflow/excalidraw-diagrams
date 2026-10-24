@@ -1,8 +1,8 @@
 ---
 name: excalidraw-diagrams
-description: "Generate clean, readable .excalidraw diagrams (flowcharts, process maps, runbooks, architecture diagrams, state machines, funnel/forensics maps, visual explainers) as complete JSON files with deliberate layout discipline: box size computed from text, fixed-width columns, grid-aligned cards, explicitly bound arrows. Triggers on 'diagram', 'flowchart', 'map this out', 'visualize this process', 'make this dummy-proof', 'excalidraw'. Includes a Python builder library, a PNG renderer/linter for layout QA, and an optional push to an Excalidraw+ workspace as a live editable scene. For charts of numeric data, use a charting skill instead."
+description: "Generate clean, readable .excalidraw diagrams (flowcharts, process maps, runbooks, architecture diagrams, state machines, funnel maps (a two-variation funnel generator included), forensics maps, visual explainers) as complete JSON files with deliberate layout discipline: box size computed from text, fixed-width columns, grid-aligned cards, explicitly bound arrows. Triggers on 'diagram', 'flowchart', 'map this out', 'visualize this process', 'make this dummy-proof', 'excalidraw'. Includes a Python builder library, a PNG renderer/linter for layout QA, and an optional push to an Excalidraw+ workspace as a live editable scene. For charts of numeric data, use a charting skill instead."
 metadata:
-  version: 1.0.0
+  version: 1.1.0
   license: MIT
 ---
 
@@ -111,6 +111,53 @@ python3 scripts/render_excalidraw_png.py diagrams/speed-to-lead.excalidraw
 ```
 
 See `examples/runbook_example.py` for a complete generator following the runbook archetype.
+
+## Funnel map mode
+
+For a lead-generation or sales funnel (traffic, a self-diagnosis tool or lead magnet, an email gate, segments, then a router into free, low-ticket and high-ticket lanes), do not lay it out by hand. Fill in one content file and run:
+
+```bash
+python3 scripts/funnel_map.py my-funnel.json --out diagrams --png
+```
+
+It writes two maps from the same content:
+
+| File | Shape | Use it for |
+|---|---|---|
+| `<slug>-A-spine.excalidraw` | Top to bottom, numbered steps, router, lanes side by side. Right column: what you learn and the track per segment. Roadmap and client math below | Walking someone through the funnel for the first time |
+| `<slug>-B-router.excalidraw` | Left to right: traffic, tool, segments, unlock, router diamond, lanes as swimlanes. Client math as fixed-column bars | Strategy conversations with someone who knows the basics |
+
+`--png` saves a QA preview next to each file (needs Chrome). Look at both before you share them.
+
+### Content file
+
+Copy `examples/funnel/funnel.example.json`. Every field:
+
+| Field | What goes in it |
+|---|---|
+| `title`, `slug`, `subtitle_a`, `subtitle_b` | Map title, file name stem, optional subtitles |
+| `traffic` | `[text, status]` rows: where people start |
+| `steps` | Spine steps after traffic. Each: `title`, `items` (`[text, status]`), `tone`. Flags: `is_tool` (the quiz or lead magnet; `short` and `card_title` label it on map B), `is_gate` (the email unlock), `feeds_learn` (draws a dashed data arrow to the next "learn" card, in order) |
+| `stop` | Optional safety or disqualification exit off the tool |
+| `router` | `label` and `sub` for the decision diamond (for example "help type + budget") |
+| `lanes` | 2 to 4 offer lanes. Each: `name`, `tone` (`free`, `low`, `high`), `who` (the routing rule in plain words), `steps`, optional `note` |
+| `lane_notes` | Ascend and downsell lines under the lanes on map A |
+| `segments` | Result types: `name`, `rule`, `track` (email track), `tool` |
+| `learn`, `learn_title`, `loop` | What the owner learns (cards of `[text, status]`) and the feedback loop back to traffic |
+| `roadmap` | Phases: `when`, `name`, `items`, optional `watch` (the KPI) |
+| `math` | `goal`, `goal_label`, `steps` (`[name, rate]`, first rate `null`), `leads_row`, `high_rows`, prices, `low_buy`. The script back-solves the traffic the goal needs and adds revenue lines |
+| `links` | Optional `tool` and `details` URLs: the tool card and a "How it works" label become clickable |
+
+Statuses are `live`, `part` and `build`, drawn as green, amber and red dots (relabel them with `legend`). Tones carry one meaning each: green free, amber low ticket or needs setup, red high ticket, teal data, the brand color for the tool, red for the safety stop.
+
+### Before you build, ask for
+
+1. Traffic sources, and which ones exist today.
+2. The tool's steps, and what is free versus behind the email.
+3. The segments, and the rule that puts someone in each.
+4. The router rule, and each lane's offer and price.
+5. What gets measured, and what never leaves the visitor's device.
+6. The client goal per month and the conversion rates. Use placeholders if there is no data yet. The maps label every rate as a placeholder, so never present them as forecasts.
 
 ## After writing
 

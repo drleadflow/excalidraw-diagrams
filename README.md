@@ -31,8 +31,19 @@ Optional Excalidraw+ push: `export EXCALIDRAW_API_KEY=...` (see `references/exca
 | `references/element-schema.md` | Element JSON reference |
 | `references/excalidraw-plus-api.md` | API setup, quirks, and safety conventions |
 | `examples/runbook_example.py` | Complete generator for the runbook archetype |
+| `scripts/funnel_map.py` | Funnel map mode: one JSON content file in, two funnel maps out (a top-to-bottom spine and a left-to-right router, with roadmap and client math) |
+| `examples/funnel/` | Example content file and both generated maps with previews |
 
 ## Quick start
+
+Funnel maps, from one content file:
+
+```bash
+python3 scripts/funnel_map.py examples/funnel/funnel.example.json --out diagrams --png
+open diagrams/example-quiz-funnel-A-spine.png
+```
+
+Any other diagram:
 
 ```bash
 python3 examples/runbook_example.py

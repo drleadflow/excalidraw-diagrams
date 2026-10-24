@@ -1,0 +1,60 @@
+{
+  "title": "Strength Over 40 quiz funnel",
+  "slug": "example-quiz-funnel",
+  "subtitle_a": "Example. Variation A, the spine: every step people take, what they get, what the creator learns, and where each lane leads.",
+  "legend": {"live": "built", "part": "built, needs setup", "build": "to build"},
+  "links": {"tool": "https://example.com/quiz", "details": "https://example.com/how-the-quiz-grades"},
+  "traffic": [
+    ["Reels + carousels: 'Comment QUIZ' sends the link by DM", "build"],
+    ["Link in bio", "live"],
+    ["Newsletter footer links to the quiz", "build"],
+    ["Paid ads, once the numbers are known", "build"]
+  ],
+  "steps": [
+    {"title": "THE QUIZ  ·  12 taps, about 2 minutes", "short": "THE QUIZ  ·  12 taps", "card_title": "Self-diagnosis, answers stay on the phone",
+     "is_tool": true, "feeds_learn": true, "tone": "brand",
+     "items": [["Goal and starting point", "live"], ["Training, protein, sleep, steps", "live"], ["Joint pain check (never graded)", "live"], ["3 coaching taps: coached before? help type? budget?", "live"]]},
+    {"title": "FREE RESULT  ·  the self-diagnosis, no email", "tone": "free",
+     "items": [["Overall grade + their type", "live"], ["One belief to drop, one to adopt", "live"]]},
+    {"title": "UNLOCK  ·  email for the full report", "tone": "low", "is_gate": true, "feeds_learn": true,
+     "items": [["Name + email join the newsletter", "part"], ["Coaching answers go with it", "part"]]},
+    {"title": "FULL REPORT  ·  what to fix and which tool to use", "tone": "free",
+     "items": [["Every habit graded A to D", "live"], ["Top 3 fixes for this week", "live"], ["Matched free tools", "live"]]}
+  ],
+  "stop": {"title": "Safety stop", "items": [["Medical red flags: no grades, see a clinician", "live"]]},
+  "router": {"label": "ROUTER", "sub": "help type + budget"},
+  "lanes": [
+    {"name": "FREE NURTURE", "tone": "free", "who": "Help: free tools, or budget 'free for now'", "note": "ascends to the $97 plan",
+     "steps": [["Weekly newsletter", "part"], ["Email track for their type", "build"], ["$97 plan offered around day 7", "build"]]},
+    {"name": "LOW TICKET  ·  $97", "tone": "low", "who": "Help: a plan on my own, or budget under $2,000", "note": "finishers invited to apply",
+     "steps": [["$97 self-guided 8-week plan", "build"], ["Optional $27 add-on", "build"], ["Finishers invited to apply", "build"]]},
+    {"name": "HIGH TICKET  ·  $3,000", "tone": "high", "who": "Help: 1:1, AND budget $2,000+ for 3 months",
+     "steps": [["Short application", "build"], ["15-minute fit call", "build"], ["$3,000 for 3 months of 1:1", "build"], ["Not a fit: offer the $97 plan", "build"]]}
+  ],
+  "lane_notes": ["Free nurture ascends to the $97 plan. Plan finishers are invited to apply.", "Not a fit for high ticket: offered the $97 plan."],
+  "segments": [
+    {"name": "Overtrained", "rule": "5+ days, poor sleep", "track": "Recovery track", "tool": "Sleep check"},
+    {"name": "Restarter", "rule": "not training now", "track": "Start small track", "tool": "Exercise finder"},
+    {"name": "Close", "rule": "grade B", "track": "Last gap track", "tool": "Tool for their #1 fix"}
+  ],
+  "learn_title": "WHAT THE CREATOR LEARNS",
+  "learn": [
+    {"title": "Anonymous totals, every finisher", "items": [["Type, grade, #1 fix", "part"], ["Coaching answers", "part"], ["No name, no email, no health answers", "live"]]},
+    {"title": "Subscriber fields", "items": [["Coaching answers on every signup", "part"], ["One email track per type", "build"]]},
+    {"title": "Monthly read", "items": [["Top fix picks the next content", "build"], ["% high-ticket fit says when to open spots", "build"]]}
+  ],
+  "loop": "the top fixes become next month's content",
+  "roadmap_title": "90-DAY ROADMAP",
+  "roadmap": [
+    {"when": "WEEKS 1-2", "name": "Launch", "items": ["Quiz live", "Signup + totals live", "DM automation"], "watch": "Watch: starts, completion %"},
+    {"when": "WEEKS 3-6", "name": "Learn", "items": ["30 days of totals", "Email track per type"], "watch": "Watch: opens, top fix"},
+    {"when": "WEEKS 6-10", "name": "Low ticket", "items": ["Build the plan for the biggest type"], "watch": "Watch: buyers per 100 leads"},
+    {"when": "WEEKS 8-12", "name": "High ticket", "items": ["Application + fit call", "First clients"], "watch": "Watch: show %, close %"}
+  ],
+  "math": {
+    "goal": 5, "goal_label": "new 1:1 clients a month", "unit": "per month",
+    "steps": [["Quiz starts", null], ["Finish the quiz", 0.6], ["Unlock with email", 0.45], ["High-ticket fit", 0.1], ["Apply", 0.5], ["Show to the fit call", 0.7], ["Become a client", 0.3]],
+    "leads_row": 2, "high_rows": [3, 4, 5, 6], "high_price": 3000, "high_term": "3-month", "low_price": 97, "low_buy": 0.03,
+    "note": "every rate is a placeholder until you have real numbers"
+  }
+}
